@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>sql</title>
+    <title>showtable</title>
     <!-- Favicon-->
     <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 
@@ -21,24 +21,17 @@
     <!-- Animation Css -->
     <link href="../../plugins/animate-css/animate.css" rel="stylesheet" />
 
-    <!-- Bootstrap Material Datetime Picker Css -->
-    <link href="../../plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+    <!-- JQuery DataTable Css -->
+    <link href="../../plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
 
-    <!-- Bootstrap DatePicker Css -->
-    <link href="../../plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
-
-    <!-- Wait Me Css -->
-    <link href="../../plugins/waitme/waitMe.css" rel="stylesheet" />
-
-    <!-- Bootstrap Select Css -->
-    <link href="../../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
-
-    <!-- Custom Css -->
+    <!-- Sweetalert Css -->
+    <link href="../../plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+	
+	<!-- Custom Css -->
     <link href="../../css/style.css" rel="stylesheet">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="../../css/themes/all-themes.css" rel="stylesheet" />
-
 </head>
 
 <body class="theme-red">
@@ -121,7 +114,7 @@
                                 </a>
                             </li>
 -->
-                            <li> <a href="create_table_1.html" @onclick="getTable(site.name,'add')">
+                            <li> <a href="javascript:void(0);">
 								<em class="material-icons ">add</em>
 								<span>Add Table</span></a>
 							</li>
@@ -253,53 +246,69 @@
     <section class="content">
         <div class="container-fluid">
             
-            <!-- Textarea -->
+          <!-- Basic Examples -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header">
-                            <h2>SQL Statement</h2>
+                        <div class="header" id="title">
+                            <h2>
+                                {{ title }}
+                          </h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="javascript:void(0);">Delete table</a></li>
+                                        <li><a href="javascript:void(0);">Export table</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </div>
                         <div class="body">
+                            <div class="table-responsive" id="v-table">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Age</th>
+                                            <th>Start date</th>
+                                            <th>OPTION</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Age</th>
+                                            <th>Start date</th>
+                                            <th>OPTION</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                      <tr>
+                                            <td>Tiger Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                        	<td class="align-center row">
+												<div class="btn-group btn-group-xs js-sweetalert" role="group" aria-label="Extra-small button group">
+                                        			<button type="button" class="btn bg-amber waves-effect">e d i t</button>
+                                        			<button class="btn bg-red waves-effect"  data-type="confirm">delete</button>
+                                    			</div>
+											</td>
+                                        </tr>
 
-                            <h2 class="card-inside-title">
-                                Enter Your SQL statement here. 
-								<small>It's an autosize area. ctrl+Enter to Submit.</small>
-                            </h2>
-                            <div class="form-group" id="input">
-                                <div class="form-line">
-                                    <textarea rows="1" v-model="sql" class="form-control no-resize auto-growth" placeholder="You can ues Enter and Tab here."></textarea>
-                                </div>
-								<button type="button" class="btn btn-primary m-t-15 waves-effect" @click="post()">SUBMIT</button>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- #END# Textarea -->
-			
-			<!-- Textarea -->
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>OUTPUT</h2>
-                        </div>
-                        <div class="body">
-                            <div class="row clearfix">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <div class="form-line" id="output">
-                                            <textarea id="info" rows="14" readonly="true" v-model="output" class="form-control no-resize"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- #END# Textarea -->
+            <!-- #END# Basic Examples -->
         </div>
     </section>
 
@@ -341,45 +350,52 @@
     <script src="../../js/vue.min.js"></script>
     <script src="../../js/vue-resource.min.js"></script>
 	
-	<!-- vue output -->
+	<!-- output title-->
 	<script>
-		var out = new Vue({
-			el: '#output',
+		var title = new Vue({
+			el: '#title',
+			data: 
+				{title: sessionStorage.select_database + '/' + sessionStorage.select_table}
+		})
+	</script>
+	
+	<!-- output table-->
+	<script>
+		
+		
+		var table = new Vue({
+			el: 'v-table',
 			data: {
-				output: ''
-			}
-		});
-
-        var app = new Vue({
-            el: '#input',
-            data: {
-                sql: ''
-            },
-            // 在 `methods` 对象中定义方法
-            methods: {
-                greet: function () {
-                // `this` 在方法里指当前 Vue 实例
-                    alert('Hello ' + this.sql + '!');
-                    console.log('hello ' + out.output);
-                },
+				
+			},
+			methods: {
 				post:function(){
 					//发送 post 请求
-					this.$http.post('http://47.94.252.84:80/db/index',{sql: this.sql},{emulateJSON:true}).then(function(res){
-						console.log(res.body.data);
-						out.output=res.body.data;
+					this.$http.post('http://47.94.252.84:80/db/index',{'use ' + sessionStorage.select_database},{emulateJSON:true}).then(function(res){
+						//console.log(res.body.data);
+						//console.log(menu.$data.data);
+						//menu.$data.data=JSON.parse(res.data.data);
+						//console.log(menu.$data.data);
 					},function(res){
 						console.log(res.body.code);
 					});
-					this.sql='';
-					var obj = document.getElementById("info");
-//					console.log(obj);
-//					console.log(obj.scrollHeight);
-					obj.scrollTop = obj.scrollHeight; // 定位到新的log开始处
-
+	        	},
+				post_2:function(){
+					//发送 post 请求
+					this.$http.post('http://47.94.252.84:80/db/table',{'select * from ' + sessionStorage.select_table},{emulateJSON:true}).then(function(res){
+						//console.log(res.body.data);
+						//console.log(menu.$data.data);
+						this.data=JSON.parse(res.data.data);
+						//console.log(menu.$data.data);
+					},function(res){
+						console.log(res.body.code);
+					});
 	        	}
-            }
-        })
-        
+			}
+		})
+		
+		table.post();
+		table.post_2();
 	</script>
 	
 	<!-- create menu-->
@@ -445,29 +461,6 @@
 		
 		
 		
-	</script>
-	
-	<!-- Keyboard listen -->
-	<script>
-		$("textarea").on(
-            'keydown',
-            function(e) {
-                if (e.keyCode == 9) {
-                    e.preventDefault();
-                    var indent = '    ';
-                    var start = this.selectionStart;
-                    var end = this.selectionEnd;
-                    var selected = window.getSelection().toString();
-                    selected = indent + selected.replace(/\n/g, '\n' + indent);
-                    this.value = this.value.substring(0, start) + selected
-                            + this.value.substring(end);
-                    this.setSelectionRange(start + indent.length, start
-                            + selected.length);
-                } else if (e.ctrlKey && (e.keyCode == 13 || e.keyCode == 108)) {
-					//alert("submit");
-					app.post();
-				}
-            })
 	</script>
 	
 </body>

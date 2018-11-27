@@ -34,12 +34,23 @@ var aa = new Vue({
   }
 })
 
+var aaa = new Vue({
+  el: '',
+  data: {
+    sites: [
+      { name: 'fffff', ch: ['lalala', 'bababa'] },
+      { name: 'Google', ch: ['three'] },
+
+    ]
+  }
+})
+
 new Vue({
   el: '#app',
   data: aa.$data,
 	methods: {
 		change: function() {
-			aa.sites[0].name='fff';
+			aa.sites=aaa.sites;
 			console.log(this.sites[0].name);
 		}
 	}

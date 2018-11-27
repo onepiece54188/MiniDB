@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Jquery DataTable | Bootstrap Based Admin Template - Material Design</title>
+    <title>showtable</title>
     <!-- Favicon-->
     <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 
@@ -62,7 +62,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="javascript:void(0);">MINI-DB</a>
+                <a class="navbar-brand" href="javascript:void(0);">OUR-SQL</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -80,11 +80,11 @@
         <aside id="leftsidebar" class="sidebar">
             <!-- User Info -->            <!-- #User Info -->
             <!-- Menu -->
-            <div class="menu">
+            <div class="menu" id="mmenu">
                 <ul class="list">
                     <li class="header">SQL Statement</li>
                     <li class="">
-                        <a href="javascript:void(0);" class="toggled waves-effect waves-block">
+                        <a href="statement.html" class="toggled waves-effect waves-block">
                             <i class="material-icons">laptop</i>
                             <span>SQL Statement</span>
                         </a>
@@ -93,34 +93,40 @@
 
                     
                     <li class="header">Database List</li>
+				<template v-for="site in data">
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
 							<i class="material-icons">view_list</i>
-							<span>Datebase</span>
+							<span>{{ site.name }}</span>
 						</a>
                         <ul class="ml-menu">
-                            <li>
-                                <a href="javascript:void(0);">
-                                    <span>table1</span>
+							<template v-for="si in site.ch">
+                            <li >
+                                <a href="show_table.html" @click="getTable(site.name,si)" >
+                                    <span>{{ si }}</span>
                                 </a>
                             </li>
+							</template>
+<!--
                             <li>
                                 <a href="javascript:void(0);">
                                     <span>table2</span>
                                 </a>
                             </li>
+-->
                             <li> <a href="javascript:void(0);">
-								<em class="material-icons md-18">add</em>
+								<em class="material-icons ">add</em>
 								<span>Add Table</span></a>
 							</li>
 							<li> <a href="javascript:void(0);">
-								<em class="material-icons md-18">remove</em>
+								<em class="material-icons ">remove</em>
 								<span>Remove Database</span></a>
 							</li>
                         </ul>
                     </li>
+				</template>
 					<li class="">
-                        <a href="javascript:void(0);" class="toggled waves-effect waves-block">
+                        <a href="create_database.html" class="toggled waves-effect waves-block">
                             <i class="material-icons">add</i>
                             <span>Add Database</span>
                         </a>
@@ -132,7 +138,7 @@
             <!-- Footer -->
             <div class="legal">
                 <div class="copyright">
-                    &copy; 2018 - 2019 <a href="javascript:void(0);">MINI-DB</a>.
+                    &copy; 2018 - 2019 <a href="javascript:void(0);">OUR-SQL</a>.
                 </div>
                 <div class="version">
                     <b>Version: </b> 1.0.0
@@ -244,9 +250,9 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header">
+                        <div class="header" id="title">
                             <h2>
-                                Table name
+                                {{ title }}
                           </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
@@ -261,7 +267,7 @@
                             </ul>
                         </div>
                         <div class="body">
-                            <div class="table-responsive">
+                            <div class="table-responsive" id="v-table">
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                     <thead>
                                         <tr>
@@ -318,33 +324,149 @@
     <!-- Slimscroll Plugin Js -->
     <script src="../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
-	<!-- Bootstrap Notify Plugin Js -->
-    <script src="../../plugins/bootstrap-notify/bootstrap-notify.js"></script>
-	
     <!-- Waves Effect Plugin Js -->
     <script src="../../plugins/node-waves/waves.js"></script>
 
-    <!-- Jquery DataTable Plugin Js -->
-    <script src="../../plugins/jquery-datatable/jquery.dataTables.js"></script>
-    <script src="../../plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-    <script src="../../plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
-	
-	<!-- SweetAlert Plugin Js -->
-    <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- Autosize Plugin Js -->
+    <script src="../../plugins/autosize/autosize.js"></script>
+
+    <!-- Moment Plugin Js -->
+    <script src="../../plugins/momentjs/moment.js"></script>
+
+    <!-- Bootstrap Material Datetime Picker Plugin Js -->
+    <script src="../../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+    <!-- Bootstrap Datepicker Plugin Js -->
+    <script src="../../plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 
     <!-- Custom Js -->
     <script src="../../js/admin.js"></script>
-    <script src="../../js/pages/tables/jquery-datatable.js"></script>
-	<script src="../../js/pages/ui/dialogs.js"></script>
+    <script src="../../js/pages/forms/basic-form-elements.js"></script>
 
     <!-- Demo Js -->
     <script src="../../js/demo.js"></script>
+	
+	<!-- VUE -->
+    <script src="../../js/vue.min.js"></script>
+    <script src="../../js/vue-resource.min.js"></script>
+	
+	<!-- output title-->
+	<script>
+		var title = new Vue({
+			el: '#title',
+			data: 
+				{title: sessionStorage.select_database + '/' + sessionStorage.select_table}
+		})
+	</script>
+	
+	<!-- output table-->
+	<script>
+		
+		
+		var table = new Vue({
+			el: 'v-table',
+			data: {
+				
+			},
+			methods: {
+				post:function(){
+					//发送 post 请求
+					console.log("post");
+					var st = 'use ' + sessionStorage.select_database;
+					this.$http.post('http://47.94.252.84:80/db/index',{sql: st},{emulateJSON:true}).then(function(res){
+						console.log(res.body.data);
+						//console.log(menu.$data.data);
+						//menu.$data.data=JSON.parse(res.data.data);
+						//console.log(menu.$data.data);
+					},function(res){
+						console.log(res.body.code);
+					});
+	        	},
+				post_2:function(){
+					//发送 post 请求
+					var st = 'select * from ' + sessionStorage.select_table;
+					this.$http.post('http://47.94.252.84:80/db/table',{sql: st},{emulateJSON:true}).then(function(res){
+						console.log(res.body.data);
+						//console.log(menu.$data.data);
+						this.data=JSON.parse(res.data.data);
+						//console.log(menu.$data.data);
+					},function(res){
+						console.log(res.body.code);
+					});
+	        	}
+			}
+		})
+		
+		table.post();
+		table.post_2();
+	</script>
+	
+	<!-- create menu-->
+	<script>
+		var temp = new Vue({
+		  el: '',
+		  data: {
+			data: [
+			  { name: 'Runoob', ch: ['lalala', 'bababa'] },
+			  { name: 'Google', ch: ['three'] },
+			  { name: 'Taobao', ch: [] },
+			  { name: 'mine', ch: ['mmmmmm','nnn', 'yyy']},
+			  {name: 'www.baidu.com', ch: [ '']}
+			]
+		  }
+		})
+		
+		var menu = new Vue({
+			el: '#mmenu',
+			data: temp.$data,
+			methods: {
+				getTable: function(a,b) {
+
+					//console.log(a+b);
+					sessionStorage.select_database=a;
+					sessionStorage.select_table=b;
+					//console.log(sessionStorage.select_database);
+					//console.log(sessionStorage.select_table);
+					
+					//window.location.href="show_table.html";
+				}
+			}
+		})
+		
+		var query = new Vue({
+			el: '',
+			data: {
+			},
+			methods: {
+				post:function(){
+					console.log("post menu");
+					//发送 post 请求
+					this.$http.post('http://47.94.252.84:80/db/info',{},{emulateJSON:true}).then(function(res){
+						//console.log(res.body.data);
+						//console.log(menu.$data.data);
+						menu.$data.data=JSON.parse(res.data.data);
+						//console.log(menu.$data.data);
+					},function(res){
+						console.log(res.body.code);
+					});
+	        	}
+			}
+		})
+		
+		query.post();
+		window.onload=function() {
+			
+		};
+		
+		function getname(a,b) {
+			console.log(a);
+			console.log(b);
+		}
+		
+		
+		
+	</script>
+	
 </body>
 
 </html>
