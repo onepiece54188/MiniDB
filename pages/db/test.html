@@ -7,12 +7,13 @@
 </head>
 <body>
 <div id="app">
+	<button @click="change"></button>
   <ul>
     <template v-for="site in sites">
       <li>{{ site.name }}</li>
       <li>--------------</li>
       <template v-for="si in site.ch">
-        <li> {{ si.nn }}</li>
+        <li> {{ si }}</li>
         <a :href="site.name+'/'+si.nn"><li> path: "{{ site.name }}/{{ si.nn }}"</li></a>
       </template>
     </template>
@@ -24,18 +25,24 @@ var aa = new Vue({
   el: '',
   data: {
     sites: [
-      { name: 'Runoob', ch: [{nn: 'lalala'}, {nn: 'bababa'}] },
-      { name: 'Google', ch: [{nn: 'three'}] },
+      { name: 'Runoob', ch: ['lalala', 'bababa'] },
+      { name: 'Google', ch: ['three'] },
       { name: 'Taobao', ch: [] },
-      { name: 'mine', ch: [{nn: 'mmmmmm'},{nn: 'nnn'}, {nn: 'yyy'}]},
-      {name: 'www.baidu.com', ch: [{nn: ''}]}
+      { name: 'mine', ch: ['mmmmmm','nnn', 'yyy']},
+      {name: 'www.baidu.com', ch: [ '']}
     ]
   }
 })
 
 new Vue({
   el: '#app',
-  data: aa.$data
+  data: aa.$data,
+	methods: {
+		change: function() {
+			aa.sites[0].name='fff';
+			console.log(this.sites[0].name);
+		}
+	}
   
 })
 
