@@ -398,7 +398,12 @@
 		})
 		
 		table.post();
-		table.post_2();
+		setTimeout(
+			function(){
+				table.post_2();
+			},10
+		);
+		//table.post_2();
 	</script>
 	
 	<!-- create menu-->
