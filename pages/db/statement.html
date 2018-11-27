@@ -265,7 +265,7 @@
                                 <div class="form-line">
                                     <textarea rows="1" v-model="sql" class="form-control no-resize auto-growth" placeholder="You can ues Enter and Tab here."></textarea>
                                 </div>
-								<button type="button" class="btn btn-primary m-t-15 waves-effect" @click="greet">SUBMIT</button>
+								<button type="button" class="btn btn-primary m-t-15 waves-effect" @click="post()">SUBMIT</button>
                             </div>
                         </div>
                     </div>
@@ -385,7 +385,16 @@
                 // `this` 在方法里指当前 Vue 实例
                     alert('Hello ' + this.sql + '!');
                     console.log('hello ' + out.output);
-                }
+                },
+				post:function(){
+					//发送 post 请求
+					this.$http.post('http://47.94.252.84:80/db/index',{sql: this.sql},{emulateJSON:true}).then(function(res){
+						console.log(res.body.data);
+						out.output=res.body.data;
+					},function(res){
+						console.log(res.body.code);
+					});
+	        	}
             }
         })
         
