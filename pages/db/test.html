@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <ul>
+    <template v-for="site in sites">
+      <li>{{ site.name }}</li>
+      <li>--------------</li>
+      <template v-for="si in site.ch">
+        <li> {{ si.nn }}</li>
+        <a :href="site.name+'/'+si.nn"><li> path: "{{ site.name }}/{{ si.nn }}"</li></a>
+      </template>
+    </template>
+  </ul>
+</div>
+
+<script>
+var aa = new Vue({
+  el: '',
+  data: {
+    sites: [
+      { name: 'Runoob', ch: [{nn: 'lalala'}, {nn: 'bababa'}] },
+      { name: 'Google', ch: [{nn: 'three'}] },
+      { name: 'Taobao', ch: [] },
+      { name: 'mine', ch: [{nn: 'mmmmmm'},{nn: 'nnn'}, {nn: 'yyy'}]},
+      {name: 'www.baidu.com', ch: [{nn: ''}]}
+    ]
+  }
+})
+
+new Vue({
+  el: '#app',
+  data: aa.$data
+  
+})
+
+
+</script>
+</body>
+</html>
