@@ -261,38 +261,39 @@
                                     </a>
                                     <ul class="dropdown-menu pull-right">
                                         <li><a href="javascript:void(0);">Delete table</a></li>
-                                        <li><a href="javascript:void(0);">Export table</a></li>
+                                        <li><a href="export_table.html">Export table</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </div>
                         <div class="body">
-                            <div class="table-responsive" id="v-table">
+                            <div class="table-responsive" id="vtable">
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
+											<template v-for="site in tableHeader">
+                                            <th>{{ site }}</th>
+                                            
+											</template>
                                             <th>OPTION</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
+                                            <template v-for="site in tableHeader">
+                                            <th>{{ site }}</th>
+                                            
+											</template>
                                             <th>OPTION</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+										<template v-for="si in tableBody">
                                       <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
+										  	<template v-for="ss in si">
+                                            <td>{{ ss }}</td>
+											</template>
+                                          
                                         	<td class="align-center row">
 												<div class="btn-group btn-group-xs js-sweetalert" role="group" aria-label="Extra-small button group">
                                         			<button type="button" class="btn bg-amber waves-effect">e d i t</button>
@@ -300,6 +301,7 @@
                                     			</div>
 											</td>
                                         </tr>
+											</template>
 
                                     </tbody>
                                 </table>
@@ -349,6 +351,7 @@
 	<!-- VUE -->
     <script src="../../js/vue.min.js"></script>
     <script src="../../js/vue-resource.min.js"></script>
+<!--	<script src="https://unpkg.com/vue@2.5.17/dist/vue.js"></script>-->
 	
 	<!-- output title-->
 	<script>
@@ -361,13 +364,28 @@
 	
 	<!-- output table-->
 	<script>
+		var aa = new Vue({
+		  el: '',
+		  data: {
+			tableBody : [
+						  [ 111, 222.1999969482422, "xyz" ],
+						  [ 111, 222.1999969482422, "xyz" ],
+						  [ 222, 222.1999969482422, "xyz" ]
+					   ],
+					   tableHeader : [ "col4", "col2", "col3" ]
+		  }
+		})
+		
+		var outtable = new Vue({
+			el: '#vtable',
+			data: aa.$data,
+			
+		})
 		
 		
 		var table = new Vue({
-			el: 'v-table',
-			data: {
-				
-			},
+			el: '',
+			data: {},
 			methods: {
 				post:function(){
 					//发送 post 请求
@@ -386,10 +404,15 @@
 					//发送 post 请求
 					var st = 'select * from ' + sessionStorage.select_table;
 					this.$http.post('http://47.94.252.84:80/db/table',{sql: st},{emulateJSON:true}).then(function(res){
-						console.log(res.body.data);
-						//console.log(menu.$data.data);
-						this.data=JSON.parse(res.data.data);
-						//console.log(menu.$data.data);
+						console.log(res.data.data);
+						console.log(JSON.parse(JSON.parse(res.data.data)));
+						t = JSON.parse(JSON.parse(res.data.data));
+						console.log(t.tableBody);
+						outtable.$data.tableBody=t.tableBody;
+						outtable.$data.tableHeader=t.tableHeader;
+//						outtable.$set('tableBody',t.tableBody);
+//						outtable.$set('tableHeader',t.tableHeader);
+						console.log(outtable.$data);
 					},function(res){
 						console.log(res.body.code);
 					});
