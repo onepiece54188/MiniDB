@@ -114,6 +114,7 @@
                                 </a>
                             </li>
 -->
+<!--
                             <li> <a href="javascript:void(0);">
 								<em class="material-icons ">add</em>
 								<span>Add Table</span></a>
@@ -122,15 +123,18 @@
 								<em class="material-icons ">remove</em>
 								<span>Remove Database</span></a>
 							</li>
+-->
                         </ul>
                     </li>
 				</template>
+<!--
 					<li class="">
                         <a href="create_database.html" class="toggled waves-effect waves-block">
                             <i class="material-icons">add</i>
                             <span>Add Database</span>
                         </a>
                     </li>
+-->
                     
                 </ul>
             </div>
@@ -260,7 +264,7 @@
                                         <i class="material-icons">more_vert</i>
                                     </a>
                                     <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Delete table</a></li>
+<!--                                        <li><a href="javascript:void(0);">Delete table</a></li>-->
                                         <li><a href="export_table.html">Export table</a></li>
                                     </ul>
                                 </li>
@@ -275,7 +279,7 @@
                                             <th>{{ site }}</th>
                                             
 											</template>
-                                            <th>OPTION</th>
+<!--                                            <th>OPTION</th>-->
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -284,7 +288,7 @@
                                             <th>{{ site }}</th>
                                             
 											</template>
-                                            <th>OPTION</th>
+<!--                                            <th>OPTION</th>-->
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -294,12 +298,14 @@
                                             <td>{{ ss }}</td>
 											</template>
                                           
+<!--
                                         	<td class="align-center row">
 												<div class="btn-group btn-group-xs js-sweetalert" role="group" aria-label="Extra-small button group">
                                         			<button type="button" class="btn bg-amber waves-effect">e d i t</button>
                                         			<button class="btn bg-red waves-effect"  data-type="confirm">delete</button>
                                     			</div>
 											</td>
+-->
                                         </tr>
 											</template>
 
@@ -326,24 +332,30 @@
     <!-- Slimscroll Plugin Js -->
     <script src="../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
+	<!-- Bootstrap Notify Plugin Js -->
+    <script src="../../plugins/bootstrap-notify/bootstrap-notify.js"></script>
+	
     <!-- Waves Effect Plugin Js -->
     <script src="../../plugins/node-waves/waves.js"></script>
 
-    <!-- Autosize Plugin Js -->
-    <script src="../../plugins/autosize/autosize.js"></script>
-
-    <!-- Moment Plugin Js -->
-    <script src="../../plugins/momentjs/moment.js"></script>
-
-    <!-- Bootstrap Material Datetime Picker Plugin Js -->
-    <script src="../../plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-
-    <!-- Bootstrap Datepicker Plugin Js -->
-    <script src="../../plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="../../plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="../../plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="../../plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+	
+	<!-- SweetAlert Plugin Js -->
+    <script src="../../plugins/sweetalert/sweetalert.min.js"></script>
 
     <!-- Custom Js -->
     <script src="../../js/admin.js"></script>
-    <script src="../../js/pages/forms/basic-form-elements.js"></script>
+    <script src="../../js/pages/tables/jquery-datatable.js"></script>
+	<script src="../../js/pages/ui/dialogs.js"></script>
 
     <!-- Demo Js -->
     <script src="../../js/demo.js"></script>
